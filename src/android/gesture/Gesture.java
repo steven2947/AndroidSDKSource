@@ -34,12 +34,15 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * A gesture is a hand-drawn shape on a touch screen. It can have one or multiple strokes.
- * Each stroke is a sequence of timed points. A user-defined gesture can be recognized by 
- * a GestureLibrary. 
+ * A gesture is a hand-drawn shape on a touch screen. It can have one or multiple(倍数) strokes.
+ * Each stroke is a sequence of timed points. A user-defined gesture can be recognized by
+ * a GestureLibrary.
+ * <p>
+ * 在触摸屏上的动作就是手势,它可以有一个或者多个笔画,每个笔画由一系列的时间点组成.用户自定义的手势由 GestureLibrary 来识别
  */
 
 public class Gesture implements Parcelable {
+
     private static final long GESTURE_ID_BASE = System.currentTimeMillis();
 
     private static final int BITMAP_RENDERING_WIDTH = 2;
@@ -60,19 +63,24 @@ public class Gesture implements Parcelable {
         mGestureID = GESTURE_ID_BASE + sGestureCount.incrementAndGet();
     }
 
+    /**
+     * 复制
+     *
+     * @return
+     */
     @Override
     public Object clone() {
         Gesture gesture = new Gesture();
-        gesture.mBoundingBox.set(mBoundingBox.left, mBoundingBox.top, 
-                                        mBoundingBox.right, mBoundingBox.bottom);
+        gesture.mBoundingBox.set(mBoundingBox.left, mBoundingBox.top,
+                mBoundingBox.right, mBoundingBox.bottom);
         final int count = mStrokes.size();
         for (int i = 0; i < count; i++) {
             GestureStroke stroke = mStrokes.get(i);
-            gesture.mStrokes.add((GestureStroke)stroke.clone());
+            gesture.mStrokes.add((GestureStroke) stroke.clone());
         }
         return gesture;
     }
-    
+
     /**
      * @return all the strokes of the gesture
      */
@@ -89,7 +97,7 @@ public class Gesture implements Parcelable {
 
     /**
      * Adds a stroke to the gesture.
-     * 
+     *
      * @param stroke
      */
     public void addStroke(GestureStroke stroke) {
@@ -100,7 +108,7 @@ public class Gesture implements Parcelable {
     /**
      * Calculates the total length of the gesture. When there are multiple strokes in
      * the gesture, this returns the sum of the lengths of all the strokes.
-     * 
+     *
      * @return the length of the gesture
      */
     public float getLength() {
@@ -158,7 +166,7 @@ public class Gesture implements Parcelable {
 
     /**
      * Sets the id of the gesture.
-     * 
+     *
      * @param id
      */
     void setID(long id) {
@@ -174,10 +182,12 @@ public class Gesture implements Parcelable {
 
     /**
      * Creates a bitmap of the gesture with a transparent background.
-     * 
-     * @param width width of the target bitmap
-     * @param height height of the target bitmap
-     * @param edge the edge
+     * <p>
+     * 将手势转化为Bitmap输出,背景是透明的
+     *
+     * @param width     width of the target bitmap
+     * @param height    height of the target bitmap
+     * @param edge      the edge
      * @param numSample
      * @param color
      * @return the bitmap
@@ -210,7 +220,9 @@ public class Gesture implements Parcelable {
 
     /**
      * Creates a bitmap of the gesture with a transparent background.
-     * 
+     * <p>
+     * 将手势转化为Bitmap输出,背景是透明的
+     *
      * @param width
      * @param height
      * @param inset

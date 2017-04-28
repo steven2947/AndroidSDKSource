@@ -21,12 +21,22 @@ import java.io.IOException;
 
 /**
  * A timed point of a gesture stroke. Multiple points form a stroke.
+ * <p>
+ * 手势笔画中的一手势点
+ * 多个手势点组成一个手势笔画
  */
 
 public class GesturePoint {
+
+    /**
+     * 坐标
+     */
     public final float x;
     public final float y;
 
+    /**
+     * 时间戳
+     */
     public final long timestamp;
 
     public GesturePoint(float x, float y, long t) {
@@ -43,7 +53,12 @@ public class GesturePoint {
         final long timeStamp = in.readLong();
         return new GesturePoint(x, y, timeStamp);
     }
-    
+
+    /**
+     * 拷贝
+     *
+     * @return
+     */
     @Override
     public Object clone() {
         return new GesturePoint(x, y, timestamp);
