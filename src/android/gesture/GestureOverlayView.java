@@ -81,6 +81,10 @@ public class GestureOverlayView extends FrameLayout {
     private int mGestureStrokeType = GESTURE_STROKE_TYPE_SINGLE;
     private float mGestureStrokeLengthThreshold = 50.0f;
     private float mGestureStrokeSquarenessTreshold = 0.275f;
+
+    /**
+     * 长度、方形、角度的最小识别值，简单说就是对手势的识别精细度。
+     */
     private float mGestureStrokeAngleThreshold = 40.0f;
 
     private int mOrientation = ORIENTATION_VERTICAL;

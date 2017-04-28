@@ -36,6 +36,8 @@ import static android.gesture.GestureConstants.LOG_TAG;
 /**
  * GestureLibrary maintains gesture examples and makes predictions on a new
  * gesture
+ *
+ * GestureLibrary 是维持手势实例和预测新的手势
  */
 //
 //    File format for GestureStore:
