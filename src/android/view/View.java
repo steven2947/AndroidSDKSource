@@ -8373,8 +8373,14 @@ public class View implements Drawable.Callback, KeyEvent.Callback,
      * allow further optimizations. By default, this flag is not set on
      * View, but could be set on some View subclasses such as ViewGroup.
      *
+     * 如果这个View不再做任何绘画在它自己身上,设置这个标记跟随它的父类优化,在默认设置里,
+     * 这个标记是不会设置在view上,但是会设置在view的基类列如ViewGroup里.
+     *
+     *
      * Typically, if you override {@link #onDraw(android.graphics.Canvas)}
      * you should clear this flag.
+     *
+     * 一般来说,如果你override这个方法,你应该清空这个标识
      *
      * @param willNotDraw whether or not this View draw on its own
      */

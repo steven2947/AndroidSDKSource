@@ -54,6 +54,10 @@ import java.util.ArrayList;
  */
 @Widget
 public class GestureOverlayView extends FrameLayout {
+
+    /**
+     * 手势一笔
+     */
     public static final int GESTURE_STROKE_TYPE_SINGLE = 0;
     public static final int GESTURE_STROKE_TYPE_MULTIPLE = 1;
 
@@ -66,15 +70,30 @@ public class GestureOverlayView extends FrameLayout {
 
     private final Paint mGesturePaint = new Paint();
 
+    /**
+     * 笔记淡去的时间
+     */
     private long mFadeDuration = 150;
+    /**
+     * 手势完成的时间
+     */
     private long mFadeOffset = 420;
     private long mFadingStart;
     private boolean mFadingHasStarted;
     private boolean mFadeEnabled = true;
 
+    /**
+     * 当前手势笔迹的颜色
+     */
     private int mCurrentColor;
+    /**
+     * 确定的手势笔迹颜色
+     */
     private int mCertainGestureColor = 0xFFFFFF00;
     private int mUncertainGestureColor = 0x48FFFF00;
+    /**
+     * 笔迹宽度
+     */
     private float mGestureStrokeWidth = 12.0f;
     private int mInvalidateExtraBorder = 10;
 
@@ -87,6 +106,9 @@ public class GestureOverlayView extends FrameLayout {
      */
     private float mGestureStrokeAngleThreshold = 40.0f;
 
+    /**
+     * 记录手势时屏幕方向
+     */
     private int mOrientation = ORIENTATION_VERTICAL;
 
     private final Rect mInvalidRect = new Rect();
@@ -99,10 +121,22 @@ public class GestureOverlayView extends FrameLayout {
     private float mCurveEndX;
     private float mCurveEndY;
 
+    /**
+     * 手势长度
+     */
     private float mTotalLength;
+    /**
+     * 是否画手势中
+     */
     private boolean mIsGesturing = false;
     private boolean mPreviousWasGesturing = false;
+    /**
+     * 是否拦截手势识别事件
+     */
     private boolean mInterceptEvents = true;
+    /**
+     * 是否开始监听事件
+     */
     private boolean mIsListeningForGestures;
     private boolean mResetGesture;
 
@@ -125,8 +159,7 @@ public class GestureOverlayView extends FrameLayout {
     // fading out effect
     private boolean mIsFadingOut = false;
     private float mFadingAlpha = 1.0f;
-    private final AccelerateDecelerateInterpolator mInterpolator =
-            new AccelerateDecelerateInterpolator();
+    private final AccelerateDecelerateInterpolator mInterpolator = new AccelerateDecelerateInterpolator();
 
     private final FadeOutRunnable mFadingOut = new FadeOutRunnable();
 
@@ -143,50 +176,45 @@ public class GestureOverlayView extends FrameLayout {
         this(context, attrs, defStyleAttr, 0);
     }
 
-    public GestureOverlayView(
-            Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public GestureOverlayView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
-        final TypedArray a = context.obtainStyledAttributes(
-                attrs, R.styleable.GestureOverlayView, defStyleAttr, defStyleRes);
+        //从XML获取类型
+        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GestureOverlayView, defStyleAttr, defStyleRes);
 
-        mGestureStrokeWidth = a.getFloat(R.styleable.GestureOverlayView_gestureStrokeWidth,
-                mGestureStrokeWidth);
+        //设置默认值
+        mGestureStrokeWidth = a.getFloat(R.styleable.GestureOverlayView_gestureStrokeWidth, mGestureStrokeWidth);
         mInvalidateExtraBorder = Math.max(1, ((int) mGestureStrokeWidth) - 1);
-        mCertainGestureColor = a.getColor(R.styleable.GestureOverlayView_gestureColor,
-                mCertainGestureColor);
-        mUncertainGestureColor = a.getColor(R.styleable.GestureOverlayView_uncertainGestureColor,
-                mUncertainGestureColor);
+        mCertainGestureColor = a.getColor(R.styleable.GestureOverlayView_gestureColor, mCertainGestureColor);
+        mUncertainGestureColor = a.getColor(R.styleable.GestureOverlayView_uncertainGestureColor, mUncertainGestureColor);
         mFadeDuration = a.getInt(R.styleable.GestureOverlayView_fadeDuration, (int) mFadeDuration);
         mFadeOffset = a.getInt(R.styleable.GestureOverlayView_fadeOffset, (int) mFadeOffset);
-        mGestureStrokeType = a.getInt(R.styleable.GestureOverlayView_gestureStrokeType,
-                mGestureStrokeType);
-        mGestureStrokeLengthThreshold = a.getFloat(
-                R.styleable.GestureOverlayView_gestureStrokeLengthThreshold,
-                mGestureStrokeLengthThreshold);
-        mGestureStrokeAngleThreshold = a.getFloat(
-                R.styleable.GestureOverlayView_gestureStrokeAngleThreshold,
-                mGestureStrokeAngleThreshold);
-        mGestureStrokeSquarenessTreshold = a.getFloat(
-                R.styleable.GestureOverlayView_gestureStrokeSquarenessThreshold,
-                mGestureStrokeSquarenessTreshold);
-        mInterceptEvents = a.getBoolean(R.styleable.GestureOverlayView_eventsInterceptionEnabled,
-                mInterceptEvents);
-        mFadeEnabled = a.getBoolean(R.styleable.GestureOverlayView_fadeEnabled,
-                mFadeEnabled);
+        mGestureStrokeType = a.getInt(R.styleable.GestureOverlayView_gestureStrokeType, mGestureStrokeType);
+        mGestureStrokeLengthThreshold = a.getFloat(R.styleable.GestureOverlayView_gestureStrokeLengthThreshold, mGestureStrokeLengthThreshold);
+        mGestureStrokeAngleThreshold = a.getFloat(R.styleable.GestureOverlayView_gestureStrokeAngleThreshold, mGestureStrokeAngleThreshold);
+        mGestureStrokeSquarenessTreshold = a.getFloat(mGestureStrokeSquarenessTreshold);
+        mInterceptEvents = a.getBoolean(R.styleable.GestureOverlayView_eventsInterceptionEnabled, mInterceptEvents);
+        mFadeEnabled = a.getBoolean(R.styleable.GestureOverlayView_fadeEnabled, mFadeEnabled);
         mOrientation = a.getInt(R.styleable.GestureOverlayView_orientation, mOrientation);
 
+        //释放资源
         a.recycle();
 
         init();
     }
 
+    /**
+     * 初始化
+     */
     private void init() {
+
+        //设置了false才会触发onDraw()方法
         setWillNotDraw(false);
 
+        //初始化手势画笔对象
         final Paint gesturePaint = mGesturePaint;
-        gesturePaint.setAntiAlias(GESTURE_RENDERING_ANTIALIAS);
-        gesturePaint.setColor(mCertainGestureColor);
+        gesturePaint.setAntiAlias(GESTURE_RENDERING_ANTIALIAS);//设置是否抗锯齿
+        gesturePaint.setColor(mCertainGestureColor);//设置笔迹颜色
         gesturePaint.setStyle(Paint.Style.STROKE);
         gesturePaint.setStrokeJoin(Paint.Join.ROUND);
         gesturePaint.setStrokeCap(Paint.Cap.ROUND);
@@ -194,6 +222,8 @@ public class GestureOverlayView extends FrameLayout {
         gesturePaint.setDither(DITHER_FLAG);
 
         mCurrentColor = mCertainGestureColor;
+
+        //设置背景透明度
         setPaintAlpha(255);
     }
 
@@ -409,6 +439,12 @@ public class GestureOverlayView extends FrameLayout {
         }
     }
 
+    /**
+     * 设置笔画的透明度
+     * (0- 255)
+     *
+     * @param alpha
+     */
     private void setPaintAlpha(int alpha) {
         alpha += alpha >> 7;
         final int baseAlpha = mCurrentColor >>> 24;
@@ -556,6 +592,11 @@ public class GestureOverlayView extends FrameLayout {
         return false;
     }
 
+    /**
+     * 手势开始
+     *
+     * @param event
+     */
     private void touchDown(MotionEvent event) {
         mIsListeningForGestures = true;
 
@@ -608,6 +649,12 @@ public class GestureOverlayView extends FrameLayout {
         }
     }
 
+    /**
+     * 画手势
+     *
+     * @param event
+     * @return
+     */
     private Rect touchMove(MotionEvent event) {
         Rect areaToRefresh = null;
 

@@ -35,6 +35,10 @@ import java.util.regex.Pattern;
  * being drawn untransformed onto a {@link android.graphics.Canvas} will draw
  * into the column and row described by its left and top coordinates, but not
  * those of its bottom and right.
+ *
+ * Rect类主要用于表示坐标系中的一块矩形区域，并可以对其做一些简单操作。
+ * 这块矩形区域，需要用左上右下两个坐标点表示（left,top,right,bottom）,
+ * 你也可以获取一个Rect实例的Width和Height。
  */
 public final class Rect implements Parcelable {
     public int left;
