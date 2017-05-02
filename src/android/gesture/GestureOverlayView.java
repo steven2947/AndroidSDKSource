@@ -142,17 +142,17 @@ public class GestureOverlayView extends FrameLayout {
 
     // current gesture
     private Gesture mCurrentGesture;
+    /**
+     * 记录整个手势笔画点集合
+     */
     private final ArrayList<GesturePoint> mStrokeBuffer = new ArrayList<GesturePoint>(100);
 
     // TODO: Make this a list of WeakReferences
-    private final ArrayList<OnGestureListener> mOnGestureListeners =
-            new ArrayList<OnGestureListener>();
+    private final ArrayList<OnGestureListener> mOnGestureListeners = new ArrayList<OnGestureListener>();
     // TODO: Make this a list of WeakReferences
-    private final ArrayList<OnGesturePerformedListener> mOnGesturePerformedListeners =
-            new ArrayList<OnGesturePerformedListener>();
+    private final ArrayList<OnGesturePerformedListener> mOnGesturePerformedListeners = new ArrayList<OnGesturePerformedListener>();
     // TODO: Make this a list of WeakReferences
-    private final ArrayList<OnGesturingListener> mOnGesturingListeners =
-            new ArrayList<OnGesturingListener>();
+    private final ArrayList<OnGesturingListener> mOnGesturingListeners = new ArrayList<OnGesturingListener>();
 
     private boolean mHandleGestureActions;
 
@@ -456,6 +456,13 @@ public class GestureOverlayView extends FrameLayout {
         clear(animated, false, true);
     }
 
+    /**
+     * 清空
+     *
+     * @param animated
+     * @param fireActionPerformed
+     * @param immediate
+     */
     private void clear(boolean animated, boolean fireActionPerformed, boolean immediate) {
         setPaintAlpha(255);
         removeCallbacks(mFadingOut);
@@ -697,8 +704,7 @@ public class GestureOverlayView extends FrameLayout {
                 mTotalLength += (float) Math.hypot(dx, dy);
 
                 if (mTotalLength > mGestureStrokeLengthThreshold) {
-                    final OrientedBoundingBox box =
-                            GestureUtils.computeOrientedBoundingBox(mStrokeBuffer);
+                    final OrientedBoundingBox box = GestureUtils.computeOrientedBoundingBox(mStrokeBuffer);
 
                     float angle = Math.abs(box.orientation);
                     if (angle > 90) {
@@ -749,7 +755,8 @@ public class GestureOverlayView extends FrameLayout {
                     listeners.get(i).onGestureEnded(this, event);
                 }
 
-                clear(mHandleGestureActions && mFadeEnabled, mHandleGestureActions && mIsGesturing,
+                clear(mHandleGestureActions && mFadeEnabled,
+                        mHandleGestureActions && mIsGesturing,
                         false);
             } else {
                 cancelGesture(event);
@@ -770,6 +777,11 @@ public class GestureOverlayView extends FrameLayout {
         }
     }
 
+    /**
+     * 取消手势
+     *
+     * @param event
+     */
     private void cancelGesture(MotionEvent event) {
         // pass the event to handlers
         final ArrayList<OnGestureListener> listeners = mOnGestureListeners;
