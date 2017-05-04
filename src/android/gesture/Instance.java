@@ -60,16 +60,19 @@ class Instance {
         label = sampleName;
     }
 
+    /**
+     * 标准化数据
+     */
     private void normalize() {
         float[] sample = vector;
         float sum = 0;
 
         int size = sample.length;
         for (int i = 0; i < size; i++) {
-            sum += sample[i] * sample[i];
+            sum += sample[i] * sample[i];//所有的坐标,包含x,y轴的平方和
         }
 
-        float magnitude = (float) Math.sqrt(sum);
+        float magnitude = (float) Math.sqrt(sum);//开平方根
         for (int i = 0; i < size; i++) {
             sample[i] /= magnitude;
         }
@@ -87,6 +90,8 @@ class Instance {
         float[] pts;
         Instance instance;
         if (sequenceType == GestureStore.SEQUENCE_SENSITIVE) {//单笔手势
+
+            //得到一个离散点的数组
             pts = temporalSampler(orientationType, gesture);
             instance = new Instance(gesture.getID(), pts, label);
             instance.normalize();
@@ -104,10 +109,14 @@ class Instance {
 
     //时间取样
     private static float[] temporalSampler(int orientationType, Gesture gesture) {
+        //离散点
         float[] pts = GestureUtils.temporalSampling(gesture.getStrokes().get(0), SEQUENCE_SAMPLE_SIZE);
+        //重心点
         float[] center = GestureUtils.computeCentroid(pts);
+        //计算弧度值(计算第一个点与重心点形成的角度的弧度值)
         float orientation = (float) Math.atan2(pts[1] - center[1], pts[0] - center[0]);
 
+        //???
         float adjustment = -orientation;
         if (orientationType != GestureStore.ORIENTATION_INVARIANT) {
             int count = ORIENTATIONS.length;
@@ -119,7 +128,9 @@ class Instance {
             }
         }
 
+        //根据中心点平移,平移到中心点在原点上
         GestureUtils.translate(pts, -center[0], -center[1]);
+        //根据调整出来的adjustment旋转数据
         GestureUtils.rotate(pts, adjustment);
 
         return pts;

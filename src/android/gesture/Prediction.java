@@ -16,6 +16,9 @@
 
 package android.gesture;
 
+/**
+ * 预测数据对象
+ */
 public class Prediction {
     public final String name;
 

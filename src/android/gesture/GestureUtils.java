@@ -267,7 +267,7 @@ public final class GestureUtils {
      * @return the sampled points in the form of [x1, y1, x2, y2, ..., xn, yn]
      */
     public static float[] temporalSampling(GestureStroke stroke, int numPoints) {
-        //递增量
+        //递增量,手势笔画的长度除以需要切开的段数(离散点数 - 1)
         final float increment = stroke.length / (numPoints - 1);
         //向量长度
         int vectorLength = numPoints * 2;
@@ -338,6 +338,9 @@ public final class GestureUtils {
 
     /**
      * Calculates the centroid of a set of points.
+     * 计算重心点
+     * <p>
+     * 把所有的点的值相加,乘以2.除以总数
      *
      * @param points the points in the form of [x1, y1, x2, y2, ..., xn, yn]
      * @return the centroid
@@ -423,6 +426,7 @@ public final class GestureUtils {
         float squaredDistance = 0;
         int size = vector1.length;
         for (int i = 0; i < size; i++) {
+            //坐标点的x轴或y轴差距
             float difference = vector1[i] - vector2[i];
             squaredDistance += difference * difference;
         }
@@ -447,6 +451,8 @@ public final class GestureUtils {
 
     /**
      * Calculates the "minimum" cosine distance between two instances.
+     * <p>
+     * 最小的余弦距离
      *
      * @param vector1
      * @param vector2
@@ -455,14 +461,16 @@ public final class GestureUtils {
      */
     static float minimumCosineDistance(float[] vector1, float[] vector2, int numOrientations) {
         final int len = vector1.length;
+        //???
         float a = 0;
         float b = 0;
         for (int i = 0; i < len; i += 2) {
-            a += vector1[i] * vector2[i] + vector1[i + 1] * vector2[i + 1];
-            b += vector1[i] * vector2[i + 1] - vector1[i + 1] * vector2[i];
+            a += vector1[i] * vector2[i] + vector1[i + 1] * vector2[i + 1];//(x1 * x2 + y1 * y2)叠加所有坐标
+            b += vector1[i] * vector2[i + 1] - vector1[i + 1] * vector2[i];//(x1 * y2 + y1 * x2)叠加所有坐标
         }
         if (a != 0) {
             final float tan = b / a;
+            //角度
             final double angle = Math.atan(tan);
             if (numOrientations > 2 && Math.abs(angle) >= Math.PI / numOrientations) {
                 return (float) Math.acos(a);
@@ -575,6 +583,13 @@ public final class GestureUtils {
     }
 
 
+    /**
+     * 根据角度旋转离散点
+     *
+     * @param points
+     * @param angle
+     * @return
+     */
     static float[] rotate(float[] points, float angle) {
         float cos = (float) Math.cos(angle);
         float sin = (float) Math.sin(angle);
@@ -588,6 +603,14 @@ public final class GestureUtils {
         return points;
     }
 
+    /**
+     * 平移离散点
+     *
+     * @param points
+     * @param dx
+     * @param dy
+     * @return
+     */
     static float[] translate(float[] points, float dx, float dy) {
         int size = points.length;
         for (int i = 0; i < size; i += 2) {

@@ -74,6 +74,7 @@ public class GestureStroke {
                 bx.bottom = p.y;
                 len = 0;
             } else {
+                //三角函数,两点的直线距离
                 len += Math.hypot(p.x - tmpPoints[(i - 1) * 2], p.y - tmpPoints[(i - 1) * 2 + 1]);
                 bx.union(p.x, p.y);
             }

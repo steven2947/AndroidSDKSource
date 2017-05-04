@@ -40,17 +40,35 @@ class InstanceLearner extends Learner {
         }
     };
 
+    /**
+     * 归类
+     *
+     * @param sequenceType
+     * @param orientationType
+     * @param vector
+     * @return
+     */
     @Override
     ArrayList<Prediction> classify(int sequenceType, int orientationType, float[] vector) {
+
+        //预测对象数组
         ArrayList<Prediction> predictions = new ArrayList<Prediction>();
+        //实例数组
         ArrayList<Instance> instances = getInstances();
+
         int count = instances.size();
+
+        //便签找到得分值的map
         TreeMap<String, Double> label2score = new TreeMap<String, Double>();
+
         for (int i = 0; i < count; i++) {
             Instance sample = instances.get(i);
+
+            //保证数据长度一致
             if (sample.vector.length != vector.length) {
                 continue;
             }
+
             //距离(与手势的差距)
             double distance;
             if (sequenceType == GestureStore.SEQUENCE_SENSITIVE) {

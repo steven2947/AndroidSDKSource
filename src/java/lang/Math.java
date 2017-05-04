@@ -487,6 +487,8 @@ public final class Math {
      * <p>The computed result must be within 2 ulps of the exact result.
      * Results must be semi-monotonic.
      *
+     * 弧度值
+     *
      * @param y the ordinate coordinate
      * @param x the abscissa coordinate
      * @return the <i>theta</i> component of the point
@@ -1211,6 +1213,8 @@ public final class Math {
      * <li>If the argument is NaN, the result is NaN.</ul>
      * In other words, the result is the same as the value of the expression:
      * <p>{@code Float.intBitsToFloat(0x7fffffff & Float.floatToIntBits(a))}
+     *
+     * 绝对值
      *
      * @param a the argument whose absolute value is to be determined
      * @return the absolute value of the argument.
