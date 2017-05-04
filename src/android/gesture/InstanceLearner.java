@@ -51,16 +51,21 @@ class InstanceLearner extends Learner {
             if (sample.vector.length != vector.length) {
                 continue;
             }
+            //距离(与手势的差距)
             double distance;
             if (sequenceType == GestureStore.SEQUENCE_SENSITIVE) {
                 distance = GestureUtils.minimumCosineDistance(sample.vector, vector, orientationType);
             } else {
                 distance = GestureUtils.squaredEuclideanDistance(sample.vector, vector);
             }
+
+            //权重(权重越大,代表越匹配)
             double weight;
             if (distance == 0) {
+                //代表完全吻合
                 weight = Double.MAX_VALUE;
             } else {
+                //取distance的倒数
                 weight = 1 / distance;
             }
             Double score = label2score.get(sample.label);

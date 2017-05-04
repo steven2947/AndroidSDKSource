@@ -20,19 +20,32 @@ package android.gesture;
 /**
  * An instance represents a sample if the label is available or a query if the
  * label is null.
+ * <p>
+ * 如果label是可用的,那么instance代表一个实例,否则代表需要查询.
+ * 实例
  */
 class Instance {
+
+    /**
+     * 取样点的数量
+     */
     private static final int SEQUENCE_SAMPLE_SIZE = 16;
 
     private static final int PATCH_SAMPLE_SIZE = 16;
 
     private final static float[] ORIENTATIONS = {
-            0, (float) (Math.PI / 4), (float) (Math.PI / 2), (float) (Math.PI * 3 / 4),
-            (float) Math.PI, -0, (float) (-Math.PI / 4), (float) (-Math.PI / 2),
-            (float) (-Math.PI * 3 / 4), (float) -Math.PI
+            0,
+            (float) (Math.PI / 4),
+            (float) (Math.PI / 2),
+            (float) (Math.PI * 3 / 4),
+            (float) Math.PI, -0,
+            (float) (-Math.PI / 4),
+            (float) (-Math.PI / 2),
+            (float) (-Math.PI * 3 / 4),
+            (float) -Math.PI
     };
 
-    // the feature vector
+    // the feature vector 向量
     final float[] vector;
 
     // the label can be null
@@ -56,7 +69,7 @@ class Instance {
             sum += sample[i] * sample[i];
         }
 
-        float magnitude = (float)Math.sqrt(sum);
+        float magnitude = (float) Math.sqrt(sum);
         for (int i = 0; i < size; i++) {
             sample[i] /= magnitude;
         }
@@ -64,7 +77,8 @@ class Instance {
 
     /**
      * create a learning instance for a single stroke gesture
-     * 
+     * 创建一个会学习的实例
+     *
      * @param gesture
      * @param label
      * @return the instance
@@ -72,7 +86,7 @@ class Instance {
     static Instance createInstance(int sequenceType, int orientationType, Gesture gesture, String label) {
         float[] pts;
         Instance instance;
-        if (sequenceType == GestureStore.SEQUENCE_SENSITIVE) {
+        if (sequenceType == GestureStore.SEQUENCE_SENSITIVE) {//单笔手势
             pts = temporalSampler(orientationType, gesture);
             instance = new Instance(gesture.getID(), pts, label);
             instance.normalize();
@@ -83,15 +97,16 @@ class Instance {
         return instance;
     }
 
+    //空间取样
     private static float[] spatialSampler(Gesture gesture) {
         return GestureUtils.spatialSampling(gesture, PATCH_SAMPLE_SIZE, false);
     }
 
+    //时间取样
     private static float[] temporalSampler(int orientationType, Gesture gesture) {
-        float[] pts = GestureUtils.temporalSampling(gesture.getStrokes().get(0),
-                SEQUENCE_SAMPLE_SIZE);
+        float[] pts = GestureUtils.temporalSampling(gesture.getStrokes().get(0), SEQUENCE_SAMPLE_SIZE);
         float[] center = GestureUtils.computeCentroid(pts);
-        float orientation = (float)Math.atan2(pts[1] - center[1], pts[0] - center[0]);
+        float orientation = (float) Math.atan2(pts[1] - center[1], pts[0] - center[0]);
 
         float adjustment = -orientation;
         if (orientationType != GestureStore.ORIENTATION_INVARIANT) {

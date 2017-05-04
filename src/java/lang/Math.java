@@ -25,7 +25,9 @@
  */
 
 package java.lang;
+
 import java.util.Random;
+
 import sun.misc.FloatConsts;
 import sun.misc.DoubleConsts;
 
@@ -33,14 +35,14 @@ import sun.misc.DoubleConsts;
  * The class {@code Math} contains methods for performing basic
  * numeric operations such as the elementary exponential, logarithm,
  * square root, and trigonometric functions.
- *
+ * <p>
  * <p>Unlike some of the numeric methods of class
  * {@code StrictMath}, all implementations of the equivalent
  * functions of class {@code Math} are not defined to return the
  * bit-for-bit same results.  This relaxation permits
  * better-performing implementations where strict reproducibility is
  * not required.
- *
+ * <p>
  * <p>By default many of the {@code Math} methods simply call
  * the equivalent method in {@code StrictMath} for their
  * implementation.  Code generators are encouraged to use
@@ -49,7 +51,7 @@ import sun.misc.DoubleConsts;
  * {@code Math} methods.  Such higher-performance
  * implementations still must conform to the specification for
  * {@code Math}.
- *
+ * <p>
  * <p>The quality of implementation specifications concern two
  * properties, accuracy of the returned result and monotonicity of the
  * method.  Accuracy of the floating-point {@code Math} methods
@@ -81,9 +83,9 @@ import sun.misc.DoubleConsts;
  * have 1 ulp accuracy will automatically meet the monotonicity
  * requirements.
  *
- * @author  unascribed
- * @author  Joseph D. Darcy
- * @since   JDK1.0
+ * @author unascribed
+ * @author Joseph D. Darcy
+ * @since JDK1.0
  */
 
 public final class Math {
@@ -91,7 +93,8 @@ public final class Math {
     /**
      * Don't let anyone instantiate this class.
      */
-    private Math() {}
+    private Math() {
+    }
 
     /**
      * The {@code double} value that is closer than any other to
@@ -112,12 +115,14 @@ public final class Math {
      * result is NaN.
      * <li>If the argument is zero, then the result is a zero with the
      * same sign as the argument.</ul>
-     *
+     * <p>
      * <p>The computed result must be within 1 ulp of the exact result.
      * Results must be semi-monotonic.
      *
-     * @param   a   an angle, in radians.
-     * @return  the sine of the argument.
+     * 求sin正弦函数
+     *
+     * @param a an angle, in radians.
+     * @return the sine of the argument.
      */
     public static native double sin(double a);
 
@@ -125,12 +130,14 @@ public final class Math {
      * Returns the trigonometric cosine of an angle. Special cases:
      * <ul><li>If the argument is NaN or an infinity, then the
      * result is NaN.</ul>
-     *
+     * <p>
      * <p>The computed result must be within 1 ulp of the exact result.
      * Results must be semi-monotonic.
      *
-     * @param   a   an angle, in radians.
-     * @return  the cosine of the argument.
+     * 求余弦函数
+     *
+     * @param a an angle, in radians.
+     * @return the cosine of the argument.
      */
     public static native double cos(double a);
 
@@ -140,12 +147,12 @@ public final class Math {
      * is NaN.
      * <li>If the argument is zero, then the result is a zero with the
      * same sign as the argument.</ul>
-     *
+     * <p>
      * <p>The computed result must be within 1 ulp of the exact result.
      * Results must be semi-monotonic.
      *
-     * @param   a   an angle, in radians.
-     * @return  the tangent of the argument.
+     * @param a an angle, in radians.
+     * @return the tangent of the argument.
      */
     public static native double tan(double a);
 
@@ -156,12 +163,14 @@ public final class Math {
      * than 1, then the result is NaN.
      * <li>If the argument is zero, then the result is a zero with the
      * same sign as the argument.</ul>
-     *
+     * <p>
      * <p>The computed result must be within 1 ulp of the exact result.
      * Results must be semi-monotonic.
      *
-     * @param   a   the value whose arc sine is to be returned.
-     * @return  the arc sine of the argument.
+     * 求反正弦函数
+     *
+     * @param a the value whose arc sine is to be returned.
+     * @return the arc sine of the argument.
      */
     public static native double asin(double a);
 
@@ -170,12 +179,14 @@ public final class Math {
      * range 0.0 through <i>pi</i>.  Special case:
      * <ul><li>If the argument is NaN or its absolute value is greater
      * than 1, then the result is NaN.</ul>
-     *
+     * <p>
      * <p>The computed result must be within 1 ulp of the exact result.
      * Results must be semi-monotonic.
      *
-     * @param   a   the value whose arc cosine is to be returned.
-     * @return  the arc cosine of the argument.
+     * 求反余弦函数
+     *
+     * @param a the value whose arc cosine is to be returned.
+     * @return the arc cosine of the argument.
      */
     public static native double acos(double a);
 
@@ -185,12 +196,12 @@ public final class Math {
      * <ul><li>If the argument is NaN, then the result is NaN.
      * <li>If the argument is zero, then the result is a zero with the
      * same sign as the argument.</ul>
-     *
+     * <p>
      * <p>The computed result must be within 1 ulp of the exact result.
      * Results must be semi-monotonic.
      *
-     * @param   a   the value whose arc tangent is to be returned.
-     * @return  the arc tangent of the argument.
+     * @param a the value whose arc tangent is to be returned.
+     * @return the arc tangent of the argument.
      */
     public static native double atan(double a);
 
@@ -199,10 +210,12 @@ public final class Math {
      * equivalent angle measured in radians.  The conversion from
      * degrees to radians is generally inexact.
      *
-     * @param   angdeg   an angle, in degrees
-     * @return  the measurement of the angle {@code angdeg}
-     *          in radians.
-     * @since   1.2
+     * 角度转化为弧度
+     *
+     * @param angdeg an angle, in degrees
+     * @return the measurement of the angle {@code angdeg}
+     * in radians.
+     * @since 1.2
      */
     public static double toRadians(double angdeg) {
         return angdeg / 180.0 * PI;
@@ -215,10 +228,12 @@ public final class Math {
      * <i>not</i> expect {@code cos(toRadians(90.0))} to exactly
      * equal {@code 0.0}.
      *
-     * @param   angrad   an angle, in radians
-     * @return  the measurement of the angle {@code angrad}
-     *          in degrees.
-     * @since   1.2
+     * 弧度转化为角度
+     *
+     * @param angrad an angle, in radians
+     * @return the measurement of the angle {@code angrad}
+     * in degrees.
+     * @since 1.2
      */
     public static double toDegrees(double angrad) {
         return angrad * 180.0 / PI;
@@ -232,13 +247,13 @@ public final class Math {
      * positive infinity.
      * <li>If the argument is negative infinity, then the result is
      * positive zero.</ul>
-     *
+     * <p>
      * <p>The computed result must be within 1 ulp of the exact result.
      * Results must be semi-monotonic.
      *
-     * @param   a   the exponent to raise <i>e</i> to.
-     * @return  the value <i>e</i><sup>{@code a}</sup>,
-     *          where <i>e</i> is the base of the natural logarithms.
+     * @param a the exponent to raise <i>e</i> to.
+     * @return the value <i>e</i><sup>{@code a}</sup>,
+     * where <i>e</i> is the base of the natural logarithms.
      */
     public static native double exp(double a);
 
@@ -251,20 +266,22 @@ public final class Math {
      * positive infinity.
      * <li>If the argument is positive zero or negative zero, then the
      * result is negative infinity.</ul>
-     *
+     * <p>
      * <p>The computed result must be within 1 ulp of the exact result.
      * Results must be semi-monotonic.
      *
-     * @param   a   a value
-     * @return  the value ln&nbsp;{@code a}, the natural logarithm of
-     *          {@code a}.
+     * 自然对数
+     *
+     * @param a a value
+     * @return the value ln&nbsp;{@code a}, the natural logarithm of
+     * {@code a}.
      */
     public static native double log(double a);
 
     /**
      * Returns the base 10 logarithm of a {@code double} value.
      * Special cases:
-     *
+     * <p>
      * <ul><li>If the argument is NaN or less than zero, then the result
      * is NaN.
      * <li>If the argument is positive infinity, then the result is
@@ -274,12 +291,14 @@ public final class Math {
      * <li> If the argument is equal to 10<sup><i>n</i></sup> for
      * integer <i>n</i>, then the result is <i>n</i>.
      * </ul>
-     *
+     * <p>
      * <p>The computed result must be within 1 ulp of the exact result.
      * Results must be semi-monotonic.
      *
-     * @param   a   a value
-     * @return  the base 10 logarithm of  {@code a}.
+     * 以10为底的对数
+     *
+     * @param a a value
+     * @return the base 10 logarithm of  {@code a}.
      * @since 1.5
      */
     public static native double log10(double a);
@@ -287,6 +306,8 @@ public final class Math {
     /**
      * Returns the correctly rounded positive square root of a
      * {@code double} value.
+     * 返回正确舍入的一个double值的正平方根
+     * <p>
      * Special cases:
      * <ul><li>If the argument is NaN or less than zero, then the result
      * is NaN.
@@ -297,9 +318,9 @@ public final class Math {
      * Otherwise, the result is the {@code double} value closest to
      * the true mathematical square root of the argument value.
      *
-     * @param   a   a value.
-     * @return  the positive square root of {@code a}.
-     *          If the argument is NaN or less than zero, the result is NaN.
+     * @param a a value.
+     * @return the positive square root of {@code a}.
+     * If the argument is NaN or less than zero, the result is NaN.
      */
     public static native double sqrt(double a);
 
@@ -309,25 +330,25 @@ public final class Math {
      * positive finite {@code x}, {@code cbrt(-x) ==
      * -cbrt(x)}; that is, the cube root of a negative value is
      * the negative of the cube root of that value's magnitude.
-     *
+     * <p>
      * Special cases:
-     *
+     * <p>
      * <ul>
-     *
+     * <p>
      * <li>If the argument is NaN, then the result is NaN.
-     *
+     * <p>
      * <li>If the argument is infinite, then the result is an infinity
      * with the same sign as the argument.
-     *
+     * <p>
      * <li>If the argument is zero, then the result is a zero with the
      * same sign as the argument.
-     *
+     * <p>
      * </ul>
-     *
+     * <p>
      * <p>The computed result must be within 1 ulp of the exact result.
      *
-     * @param   a   a value.
-     * @return  the cube root of {@code a}.
+     * @param a a value.
+     * @return the cube root of {@code a}.
      * @since 1.5
      */
     public static native double cbrt(double a);
@@ -349,10 +370,10 @@ public final class Math {
      * <li>If the first argument is finite and the second argument is
      * infinite, then the result is the same as the first argument.</ul>
      *
-     * @param   f1   the dividend.
-     * @param   f2   the divisor.
-     * @return  the remainder when {@code f1} is divided by
-     *          {@code f2}.
+     * @param f1 the dividend.
+     * @param f2 the divisor.
+     * @return the remainder when {@code f1} is divided by
+     * {@code f2}.
      */
     public static native double IEEEremainder(double f1, double f2);
 
@@ -369,11 +390,17 @@ public final class Math {
      * that the value of {@code Math.ceil(x)} is exactly the
      * value of {@code -Math.floor(-x)}.
      *
+     * 回传大与或等与參數 (parameter) 的最小整数值，亦即數學中的頂函數
      *
-     * @param   a   a value.
-     * @return  the smallest (closest to negative infinity)
-     *          floating-point value that is greater than or equal to
-     *          the argument and is equal to a mathematical integer.
+     * 例如:
+     *      参数为9时,返回9;
+     *      参数为9.5时,返回10;
+     *      参数为10时,返回10;
+     *
+     * @param a a value.
+     * @return the smallest (closest to negative infinity)
+     * floating-point value that is greater than or equal to
+     * the argument and is equal to a mathematical integer.
      */
     public static native double ceil(double a);
 
@@ -387,10 +414,12 @@ public final class Math {
      * positive zero or negative zero, then the result is the same as
      * the argument.</ul>
      *
-     * @param   a   a value.
-     * @return  the largest (closest to positive infinity)
-     *          floating-point value that less than or equal to the argument
-     *          and is equal to a mathematical integer.
+     * 回传小于或者等于参数的最最大整数,即数学中的底函数
+     *
+     * @param a a value.
+     * @return the largest (closest to positive infinity)
+     * floating-point value that less than or equal to the argument
+     * and is equal to a mathematical integer.
      */
     public static native double floor(double a);
 
@@ -405,9 +434,11 @@ public final class Math {
      * <li>If the argument is NaN or an infinity or positive zero or negative
      * zero, then the result is the same as the argument.</ul>
      *
-     * @param   a   a {@code double} value.
-     * @return  the closest floating-point value to {@code a} that is
-     *          equal to a mathematical integer.
+     * 求距离参数最近的整数
+     *
+     * @param a a {@code double} value.
+     * @return the closest floating-point value to {@code a} that is
+     * equal to a mathematical integer.
      */
     public static native double rint(double a);
 
@@ -452,23 +483,23 @@ public final class Math {
      * closest to -<i>pi</i>/4.
      * <li>If both arguments are negative infinity, then the result is the
      * {@code double} value closest to -3*<i>pi</i>/4.</ul>
-     *
+     * <p>
      * <p>The computed result must be within 2 ulps of the exact result.
      * Results must be semi-monotonic.
      *
-     * @param   y   the ordinate coordinate
-     * @param   x   the abscissa coordinate
-     * @return  the <i>theta</i> component of the point
-     *          (<i>r</i>,&nbsp;<i>theta</i>)
-     *          in polar coordinates that corresponds to the point
-     *          (<i>x</i>,&nbsp;<i>y</i>) in Cartesian coordinates.
+     * @param y the ordinate coordinate
+     * @param x the abscissa coordinate
+     * @return the <i>theta</i> component of the point
+     * (<i>r</i>,&nbsp;<i>theta</i>)
+     * in polar coordinates that corresponds to the point
+     * (<i>x</i>,&nbsp;<i>y</i>) in Cartesian coordinates.
      */
     public static native double atan2(double y, double x);
 
     /**
      * Returns the value of the first argument raised to the power of the
      * second argument. Special cases:
-     *
+     * <p>
      * <ul><li>If the second argument is positive or negative zero, then the
      * result is 1.0.
      * <li>If the second argument is 1.0, then the result is the same as the
@@ -476,7 +507,7 @@ public final class Math {
      * <li>If the second argument is NaN, then the result is NaN.
      * <li>If the first argument is NaN and the second argument is nonzero,
      * then the result is NaN.
-     *
+     * <p>
      * <li>If
      * <ul>
      * <li>the absolute value of the first argument is greater than 1
@@ -485,7 +516,7 @@ public final class Math {
      * the second argument is negative infinity,
      * </ul>
      * then the result is positive infinity.
-     *
+     * <p>
      * <li>If
      * <ul>
      * <li>the absolute value of the first argument is greater than 1 and
@@ -495,10 +526,10 @@ public final class Math {
      * infinity,
      * </ul>
      * then the result is positive zero.
-     *
+     * <p>
      * <li>If the absolute value of the first argument equals 1 and the
      * second argument is infinite, then the result is NaN.
-     *
+     * <p>
      * <li>If
      * <ul>
      * <li>the first argument is positive zero and the second argument
@@ -507,7 +538,7 @@ public final class Math {
      * argument is less than zero,
      * </ul>
      * then the result is positive zero.
-     *
+     * <p>
      * <li>If
      * <ul>
      * <li>the first argument is positive zero and the second argument
@@ -516,7 +547,7 @@ public final class Math {
      * argument is greater than zero,
      * </ul>
      * then the result is positive infinity.
-     *
+     * <p>
      * <li>If
      * <ul>
      * <li>the first argument is negative zero and the second argument
@@ -525,7 +556,7 @@ public final class Math {
      * argument is less than zero but not a finite odd integer,
      * </ul>
      * then the result is positive zero.
-     *
+     * <p>
      * <li>If
      * <ul>
      * <li>the first argument is negative zero and the second argument
@@ -534,7 +565,7 @@ public final class Math {
      * argument is a negative finite odd integer,
      * </ul>
      * then the result is negative zero.
-     *
+     * <p>
      * <li>If
      * <ul>
      * <li>the first argument is negative zero and the second argument
@@ -543,7 +574,7 @@ public final class Math {
      * argument is greater than zero but not a finite odd integer,
      * </ul>
      * then the result is positive infinity.
-     *
+     * <p>
      * <li>If
      * <ul>
      * <li>the first argument is negative zero and the second argument
@@ -552,27 +583,27 @@ public final class Math {
      * argument is a positive finite odd integer,
      * </ul>
      * then the result is negative infinity.
-     *
+     * <p>
      * <li>If the first argument is finite and less than zero
      * <ul>
      * <li> if the second argument is a finite even integer, the
      * result is equal to the result of raising the absolute value of
      * the first argument to the power of the second argument
-     *
+     * <p>
      * <li>if the second argument is a finite odd integer, the result
      * is equal to the negative of the result of raising the absolute
      * value of the first argument to the power of the second
      * argument
-     *
+     * <p>
      * <li>if the second argument is finite and not an integer, then
      * the result is NaN.
      * </ul>
-     *
+     * <p>
      * <li>If both arguments are integers, then the result is exactly equal
      * to the mathematical result of raising the first argument to the power
      * of the second argument if that result can in fact be represented
      * exactly as a {@code double} value.</ul>
-     *
+     * <p>
      * <p>(In the foregoing descriptions, a floating-point value is
      * considered to be an integer if and only if it is finite and a
      * fixed point of the method {@link #ceil ceil} or,
@@ -580,20 +611,20 @@ public final class Math {
      * floor}. A value is a fixed point of a one-argument
      * method if and only if the result of applying the method to the
      * value is equal to the value.)
-     *
+     * <p>
      * <p>The computed result must be within 1 ulp of the exact result.
      * Results must be semi-monotonic.
      *
-     * @param   a   the base.
-     * @param   b   the exponent.
-     * @return  the value {@code a}<sup>{@code b}</sup>.
+     * @param a the base.
+     * @param b the exponent.
+     * @return the value {@code a}<sup>{@code b}</sup>.
      */
     public static native double pow(double a, double b);
 
     /**
      * Returns the closest {@code int} to the argument, with ties
      * rounding to positive infinity.
-     *
+     * <p>
      * <p>
      * Special cases:
      * <ul><li>If the argument is NaN, the result is 0.
@@ -604,11 +635,13 @@ public final class Math {
      * equal to the value of {@code Integer.MAX_VALUE}, the result is
      * equal to the value of {@code Integer.MAX_VALUE}.</ul>
      *
-     * @param   a   a floating-point value to be rounded to an integer.
-     * @return  the value of the argument rounded to the nearest
-     *          {@code int} value.
-     * @see     java.lang.Integer#MAX_VALUE
-     * @see     java.lang.Integer#MIN_VALUE
+     * 四舍五入
+     *
+     * @param a a floating-point value to be rounded to an integer.
+     * @return the value of the argument rounded to the nearest
+     * {@code int} value.
+     * @see java.lang.Integer#MAX_VALUE
+     * @see java.lang.Integer#MIN_VALUE
      */
     public static int round(float a) {
         int intBits = Float.floatToRawIntBits(a);
@@ -642,7 +675,7 @@ public final class Math {
     /**
      * Returns the closest {@code long} to the argument, with ties
      * rounding to positive infinity.
-     *
+     * <p>
      * <p>Special cases:
      * <ul><li>If the argument is NaN, the result is 0.
      * <li>If the argument is negative infinity or any value less than or
@@ -652,12 +685,12 @@ public final class Math {
      * equal to the value of {@code Long.MAX_VALUE}, the result is
      * equal to the value of {@code Long.MAX_VALUE}.</ul>
      *
-     * @param   a   a floating-point value to be rounded to a
+     * @param a a floating-point value to be rounded to a
      *          {@code long}.
-     * @return  the value of the argument rounded to the nearest
-     *          {@code long} value.
-     * @see     java.lang.Long#MAX_VALUE
-     * @see     java.lang.Long#MIN_VALUE
+     * @return the value of the argument rounded to the nearest
+     * {@code long} value.
+     * @see java.lang.Long#MAX_VALUE
+     * @see java.lang.Long#MIN_VALUE
      */
     public static long round(double a) {
         long longBits = Double.doubleToRawLongBits(a);
@@ -697,21 +730,23 @@ public final class Math {
      * than or equal to {@code 0.0} and less than {@code 1.0}.
      * Returned values are chosen pseudorandomly with (approximately)
      * uniform distribution from that range.
-     *
+     * <p>
      * <p>When this method is first called, it creates a single new
      * pseudorandom-number generator, exactly as if by the expression
-     *
+     * <p>
      * <blockquote>{@code new java.util.Random()}</blockquote>
-     *
+     * <p>
      * This new pseudorandom-number generator is used thereafter for
      * all calls to this method and is used nowhere else.
-     *
+     * <p>
      * <p>This method is properly synchronized to allow correct use by
      * more than one thread. However, if many threads need to generate
      * pseudorandom numbers at a great rate, it may reduce contention
      * for each thread to have its own pseudorandom-number generator.
      *
-     * @return  a pseudorandom {@code double} greater than or equal
+     * 返回0,1之间的一个随机数
+     *
+     * @return a pseudorandom {@code double} greater than or equal
      * to {@code 0.0} and less than {@code 1.0}.
      * @see Random#nextDouble()
      */
@@ -825,11 +860,11 @@ public final class Math {
      * @since 1.8
      */
     public static int multiplyExact(int x, int y) {
-        long r = (long)x * (long)y;
-        if ((int)r != r) {
+        long r = (long) x * (long) y;
+        if ((int) r != r) {
             throw new ArithmeticException("integer overflow");
         }
-        return (int)r;
+        return (int) r;
     }
 
     /**
@@ -850,8 +885,8 @@ public final class Math {
             // Some bits greater than 2^31 that might cause overflow
             // Check the result using the divide operator
             // and check for the special case of Long.MIN_VALUE * -1
-           if (((y != 0) && (r / y != x)) ||
-               (x == Long.MIN_VALUE && y == -1)) {
+            if (((y != 0) && (r / y != x)) ||
+                    (x == Long.MIN_VALUE && y == -1)) {
                 throw new ArithmeticException("long overflow");
             }
         }
@@ -970,10 +1005,10 @@ public final class Math {
      * @since 1.8
      */
     public static int toIntExact(long value) {
-        if ((int)value != value) {
+        if ((int) value != value) {
             throw new ArithmeticException("integer overflow");
         }
-        return (int)value;
+        return (int) value;
     }
 
     /**
@@ -990,15 +1025,15 @@ public final class Math {
      * The floor rounding mode gives different results than truncation
      * when the exact result is negative.
      * <ul>
-     *   <li>If the signs of the arguments are the same, the results of
-     *       {@code floorDiv} and the {@code /} operator are the same.  <br>
-     *       For example, {@code floorDiv(4, 3) == 1} and {@code (4 / 3) == 1}.</li>
-     *   <li>If the signs of the arguments are different,  the quotient is negative and
-     *       {@code floorDiv} returns the integer less than or equal to the quotient
-     *       and the {@code /} operator returns the integer closest to zero.<br>
-     *       For example, {@code floorDiv(-4, 3) == -2},
-     *       whereas {@code (-4 / 3) == -1}.
-     *   </li>
+     * <li>If the signs of the arguments are the same, the results of
+     * {@code floorDiv} and the {@code /} operator are the same.  <br>
+     * For example, {@code floorDiv(4, 3) == 1} and {@code (4 / 3) == 1}.</li>
+     * <li>If the signs of the arguments are different,  the quotient is negative and
+     * {@code floorDiv} returns the integer less than or equal to the quotient
+     * and the {@code /} operator returns the integer closest to zero.<br>
+     * For example, {@code floorDiv(-4, 3) == -2},
+     * whereas {@code (-4 / 3) == -1}.
+     * </li>
      * </ul>
      * <p>
      *
@@ -1060,11 +1095,11 @@ public final class Math {
      * The floor modulus is {@code x - (floorDiv(x, y) * y)},
      * has the same sign as the divisor {@code y}, and
      * is in the range of {@code -abs(y) < r < +abs(y)}.
-     *
+     * <p>
      * <p>
      * The relationship between {@code floorDiv} and {@code floorMod} is such that:
      * <ul>
-     *   <li>{@code floorDiv(x, y) * y + floorMod(x, y) == x}
+     * <li>{@code floorDiv(x, y) * y + floorMod(x, y) == x}
      * </ul>
      * <p>
      * The difference in values between {@code floorMod} and
@@ -1074,18 +1109,18 @@ public final class Math {
      * <p>
      * Examples:
      * <ul>
-     *   <li>If the signs of the arguments are the same, the results
-     *       of {@code floorMod} and the {@code %} operator are the same.  <br>
-     *       <ul>
-     *       <li>{@code floorMod(4, 3) == 1}; &nbsp; and {@code (4 % 3) == 1}</li>
-     *       </ul>
-     *   <li>If the signs of the arguments are different, the results differ from the {@code %} operator.<br>
-     *      <ul>
-     *      <li>{@code floorMod(+4, -3) == -2}; &nbsp; and {@code (+4 % -3) == +1} </li>
-     *      <li>{@code floorMod(-4, +3) == +2}; &nbsp; and {@code (-4 % +3) == -1} </li>
-     *      <li>{@code floorMod(-4, -3) == -1}; &nbsp; and {@code (-4 % -3) == -1 } </li>
-     *      </ul>
-     *   </li>
+     * <li>If the signs of the arguments are the same, the results
+     * of {@code floorMod} and the {@code %} operator are the same.  <br>
+     * <ul>
+     * <li>{@code floorMod(4, 3) == 1}; &nbsp; and {@code (4 % 3) == 1}</li>
+     * </ul>
+     * <li>If the signs of the arguments are different, the results differ from the {@code %} operator.<br>
+     * <ul>
+     * <li>{@code floorMod(+4, -3) == -2}; &nbsp; and {@code (+4 % -3) == +1} </li>
+     * <li>{@code floorMod(-4, +3) == +2}; &nbsp; and {@code (-4 % +3) == -1} </li>
+     * <li>{@code floorMod(-4, -3) == -1}; &nbsp; and {@code (-4 % -3) == -1 } </li>
+     * </ul>
+     * </li>
      * </ul>
      * <p>
      * If the signs of arguments are unknown and a positive modulus
@@ -1109,11 +1144,11 @@ public final class Math {
      * The floor modulus is {@code x - (floorDiv(x, y) * y)},
      * has the same sign as the divisor {@code y}, and
      * is in the range of {@code -abs(y) < r < +abs(y)}.
-     *
+     * <p>
      * <p>
      * The relationship between {@code floorDiv} and {@code floorMod} is such that:
      * <ul>
-     *   <li>{@code floorDiv(x, y) * y + floorMod(x, y) == x}
+     * <li>{@code floorDiv(x, y) * y + floorMod(x, y) == x}
      * </ul>
      * <p>
      * For examples, see {@link #floorMod(int, int)}.
@@ -1133,14 +1168,14 @@ public final class Math {
      * Returns the absolute value of an {@code int} value.
      * If the argument is not negative, the argument is returned.
      * If the argument is negative, the negation of the argument is returned.
-     *
+     * <p>
      * <p>Note that if the argument is equal to the value of
      * {@link Integer#MIN_VALUE}, the most negative representable
      * {@code int} value, the result is that same value, which is
      * negative.
      *
-     * @param   a   the argument whose absolute value is to be determined
-     * @return  the absolute value of the argument.
+     * @param a the argument whose absolute value is to be determined
+     * @return the absolute value of the argument.
      */
     public static int abs(int a) {
         return (a < 0) ? -a : a;
@@ -1150,14 +1185,16 @@ public final class Math {
      * Returns the absolute value of a {@code long} value.
      * If the argument is not negative, the argument is returned.
      * If the argument is negative, the negation of the argument is returned.
-     *
+     * <p>
      * <p>Note that if the argument is equal to the value of
      * {@link Long#MIN_VALUE}, the most negative representable
      * {@code long} value, the result is that same value, which
      * is negative.
+     * <p>
+     * 求绝对值
      *
-     * @param   a   the argument whose absolute value is to be determined
-     * @return  the absolute value of the argument.
+     * @param a the argument whose absolute value is to be determined
+     * @return the absolute value of the argument.
      */
     public static long abs(long a) {
         return (a < 0) ? -a : a;
@@ -1175,8 +1212,8 @@ public final class Math {
      * In other words, the result is the same as the value of the expression:
      * <p>{@code Float.intBitsToFloat(0x7fffffff & Float.floatToIntBits(a))}
      *
-     * @param   a   the argument whose absolute value is to be determined
-     * @return  the absolute value of the argument.
+     * @param a the argument whose absolute value is to be determined
+     * @return the absolute value of the argument.
      */
     public static float abs(float a) {
         return (a <= 0.0F) ? 0.0F - a : a;
@@ -1194,8 +1231,8 @@ public final class Math {
      * In other words, the result is the same as the value of the expression:
      * <p>{@code Double.longBitsToDouble((Double.doubleToLongBits(a)<<1)>>>1)}
      *
-     * @param   a   the argument whose absolute value is to be determined
-     * @return  the absolute value of the argument.
+     * @param a the argument whose absolute value is to be determined
+     * @return the absolute value of the argument.
      */
     public static double abs(double a) {
         return (a <= 0.0D) ? 0.0D - a : a;
@@ -1207,9 +1244,9 @@ public final class Math {
      * {@link Integer#MAX_VALUE}. If the arguments have the same value,
      * the result is that same value.
      *
-     * @param   a   an argument.
-     * @param   b   another argument.
-     * @return  the larger of {@code a} and {@code b}.
+     * @param a an argument.
+     * @param b another argument.
+     * @return the larger of {@code a} and {@code b}.
      */
     public static int max(int a, int b) {
         return (a >= b) ? a : b;
@@ -1221,9 +1258,9 @@ public final class Math {
      * {@link Long#MAX_VALUE}. If the arguments have the same value,
      * the result is that same value.
      *
-     * @param   a   an argument.
-     * @param   b   another argument.
-     * @return  the larger of {@code a} and {@code b}.
+     * @param a an argument.
+     * @param b another argument.
+     * @return the larger of {@code a} and {@code b}.
      */
     public static long max(long a, long b) {
         return (a >= b) ? a : b;
@@ -1242,14 +1279,14 @@ public final class Math {
      * argument is positive zero and the other negative zero, the
      * result is positive zero.
      *
-     * @param   a   an argument.
-     * @param   b   another argument.
-     * @return  the larger of {@code a} and {@code b}.
+     * @param a an argument.
+     * @param b another argument.
+     * @return the larger of {@code a} and {@code b}.
      */
     public static float max(float a, float b) {
         if (a != a) return a;   // a is NaN
         if ((a == 0.0f) && (b == 0.0f)
-            && (Float.floatToIntBits(a) == negativeZeroFloatBits)) {
+                && (Float.floatToIntBits(a) == negativeZeroFloatBits)) {
             return b;
         }
         return (a >= b) ? a : b;
@@ -1265,14 +1302,14 @@ public final class Math {
      * argument is positive zero and the other negative zero, the
      * result is positive zero.
      *
-     * @param   a   an argument.
-     * @param   b   another argument.
-     * @return  the larger of {@code a} and {@code b}.
+     * @param a an argument.
+     * @param b another argument.
+     * @return the larger of {@code a} and {@code b}.
      */
     public static double max(double a, double b) {
         if (a != a) return a;   // a is NaN
         if ((a == 0.0d) && (b == 0.0d)
-            && (Double.doubleToLongBits(a) == negativeZeroDoubleBits)) {
+                && (Double.doubleToLongBits(a) == negativeZeroDoubleBits)) {
             return b;
         }
         return (a >= b) ? a : b;
@@ -1284,9 +1321,9 @@ public final class Math {
      * {@link Integer#MIN_VALUE}.  If the arguments have the same
      * value, the result is that same value.
      *
-     * @param   a   an argument.
-     * @param   b   another argument.
-     * @return  the smaller of {@code a} and {@code b}.
+     * @param a an argument.
+     * @param b another argument.
+     * @return the smaller of {@code a} and {@code b}.
      */
     public static int min(int a, int b) {
         return (a <= b) ? a : b;
@@ -1298,9 +1335,9 @@ public final class Math {
      * {@link Long#MIN_VALUE}. If the arguments have the same
      * value, the result is that same value.
      *
-     * @param   a   an argument.
-     * @param   b   another argument.
-     * @return  the smaller of {@code a} and {@code b}.
+     * @param a an argument.
+     * @param b another argument.
+     * @return the smaller of {@code a} and {@code b}.
      */
     public static long min(long a, long b) {
         return (a <= b) ? a : b;
@@ -1316,14 +1353,14 @@ public final class Math {
      * one argument is positive zero and the other is negative zero,
      * the result is negative zero.
      *
-     * @param   a   an argument.
-     * @param   b   another argument.
-     * @return  the smaller of {@code a} and {@code b}.
+     * @param a an argument.
+     * @param b another argument.
+     * @return the smaller of {@code a} and {@code b}.
      */
     public static float min(float a, float b) {
         if (a != a) return a;   // a is NaN
         if ((a == 0.0f) && (b == 0.0f)
-            && (Float.floatToIntBits(b) == negativeZeroFloatBits)) {
+                && (Float.floatToIntBits(b) == negativeZeroFloatBits)) {
             return b;
         }
         return (a <= b) ? a : b;
@@ -1339,14 +1376,14 @@ public final class Math {
      * argument is positive zero and the other is negative zero, the
      * result is negative zero.
      *
-     * @param   a   an argument.
-     * @param   b   another argument.
-     * @return  the smaller of {@code a} and {@code b}.
+     * @param a an argument.
+     * @param b another argument.
+     * @return the smaller of {@code a} and {@code b}.
      */
     public static double min(double a, double b) {
         if (a != a) return a;   // a is NaN
         if ((a == 0.0d) && (b == 0.0d)
-            && (Double.doubleToLongBits(b) == negativeZeroDoubleBits)) {
+                && (Double.doubleToLongBits(b) == negativeZeroDoubleBits)) {
             return b;
         }
         return (a <= b) ? a : b;
@@ -1358,7 +1395,7 @@ public final class Math {
      * floating-point value and the {@code double} value next
      * larger in magnitude.  Note that for non-NaN <i>x</i>,
      * <code>ulp(-<i>x</i>) == ulp(<i>x</i>)</code>.
-     *
+     * <p>
      * <p>Special Cases:
      * <ul>
      * <li> If the argument is NaN, then the result is NaN.
@@ -1385,7 +1422,7 @@ public final class Math {
      * floating-point value and the {@code float} value next
      * larger in magnitude.  Note that for non-NaN <i>x</i>,
      * <code>ulp(-<i>x</i>) == ulp(<i>x</i>)</code>.
-     *
+     * <p>
      * <p>Special Cases:
      * <ul>
      * <li> If the argument is NaN, then the result is NaN.
@@ -1410,12 +1447,12 @@ public final class Math {
      * Returns the signum function of the argument; zero if the argument
      * is zero, 1.0 if the argument is greater than zero, -1.0 if the
      * argument is less than zero.
-     *
+     * <p>
      * <p>Special Cases:
      * <ul>
      * <li> If the argument is NaN, then the result is NaN.
      * <li> If the argument is positive zero or negative zero, then the
-     *      result is the same as the argument.
+     * result is the same as the argument.
      * </ul>
      *
      * @param d the floating-point value whose signum is to be returned
@@ -1431,12 +1468,12 @@ public final class Math {
      * Returns the signum function of the argument; zero if the argument
      * is zero, 1.0f if the argument is greater than zero, -1.0f if the
      * argument is less than zero.
-     *
+     * <p>
      * <p>Special Cases:
      * <ul>
      * <li> If the argument is NaN, then the result is NaN.
      * <li> If the argument is positive zero or negative zero, then the
-     *      result is the same as the argument.
+     * result is the same as the argument.
      * </ul>
      *
      * @param f the floating-point value whose signum is to be returned
@@ -1453,24 +1490,24 @@ public final class Math {
      * The hyperbolic sine of <i>x</i> is defined to be
      * (<i>e<sup>x</sup>&nbsp;-&nbsp;e<sup>-x</sup></i>)/2
      * where <i>e</i> is {@linkplain Math#E Euler's number}.
-     *
+     * <p>
      * <p>Special cases:
      * <ul>
-     *
+     * <p>
      * <li>If the argument is NaN, then the result is NaN.
-     *
+     * <p>
      * <li>If the argument is infinite, then the result is an infinity
      * with the same sign as the argument.
-     *
+     * <p>
      * <li>If the argument is zero, then the result is a zero with the
      * same sign as the argument.
-     *
+     * <p>
      * </ul>
-     *
+     * <p>
      * <p>The computed result must be within 2.5 ulps of the exact result.
      *
-     * @param   x The number whose hyperbolic sine is to be returned.
-     * @return  The hyperbolic sine of {@code x}.
+     * @param x The number whose hyperbolic sine is to be returned.
+     * @return The hyperbolic sine of {@code x}.
      * @since 1.5
      */
     public static native double sinh(double x);
@@ -1480,23 +1517,23 @@ public final class Math {
      * The hyperbolic cosine of <i>x</i> is defined to be
      * (<i>e<sup>x</sup>&nbsp;+&nbsp;e<sup>-x</sup></i>)/2
      * where <i>e</i> is {@linkplain Math#E Euler's number}.
-     *
+     * <p>
      * <p>Special cases:
      * <ul>
-     *
+     * <p>
      * <li>If the argument is NaN, then the result is NaN.
-     *
+     * <p>
      * <li>If the argument is infinite, then the result is positive
      * infinity.
-     *
+     * <p>
      * <li>If the argument is zero, then the result is {@code 1.0}.
-     *
+     * <p>
      * </ul>
-     *
+     * <p>
      * <p>The computed result must be within 2.5 ulps of the exact result.
      *
-     * @param   x The number whose hyperbolic cosine is to be returned.
-     * @return  The hyperbolic cosine of {@code x}.
+     * @param x The number whose hyperbolic cosine is to be returned.
+     * @return The hyperbolic cosine of {@code x}.
      * @since 1.5
      */
     public static native double cosh(double x);
@@ -1509,23 +1546,23 @@ public final class Math {
      * sinh(<i>x</i>)}/{@linkplain Math#cosh cosh(<i>x</i>)}.  Note
      * that the absolute value of the exact tanh is always less than
      * 1.
-     *
+     * <p>
      * <p>Special cases:
      * <ul>
-     *
+     * <p>
      * <li>If the argument is NaN, then the result is NaN.
-     *
+     * <p>
      * <li>If the argument is zero, then the result is a zero with the
      * same sign as the argument.
-     *
+     * <p>
      * <li>If the argument is positive infinity, then the result is
      * {@code +1.0}.
-     *
+     * <p>
      * <li>If the argument is negative infinity, then the result is
      * {@code -1.0}.
-     *
+     * <p>
      * </ul>
-     *
+     * <p>
      * <p>The computed result must be within 2.5 ulps of the exact result.
      * The result of {@code tanh} for any finite input must have
      * an absolute value less than or equal to 1.  Note that once the
@@ -1533,8 +1570,8 @@ public final class Math {
      * of &plusmn;1, correctly signed &plusmn;{@code 1.0} should
      * be returned.
      *
-     * @param   x The number whose hyperbolic tangent is to be returned.
-     * @return  The hyperbolic tangent of {@code x}.
+     * @param x The number whose hyperbolic tangent is to be returned.
+     * @return The hyperbolic tangent of {@code x}.
      * @since 1.5
      */
     public static native double tanh(double x);
@@ -1543,17 +1580,23 @@ public final class Math {
      * Returns sqrt(<i>x</i><sup>2</sup>&nbsp;+<i>y</i><sup>2</sup>)
      * without intermediate overflow or underflow.
      *
+     * 在没有中间溢出或者下溢的情况下,返回sqrt(x2 +y2)
+     * <p>
+     * <p>
+     * <p>
      * <p>Special cases:
      * <ul>
-     *
+     * <p>
      * <li> If either argument is infinite, then the result
      * is positive infinity.
-     *
+     * 如果任一参数为无穷大，则结果为无穷大。
+     * <p>
      * <li> If either argument is NaN and neither argument is infinite,
      * then the result is NaN.
-     *
+     * 如果任一参数为NaN，且两个参数都不是无穷大，则结果为NaN。
+     * <p>
      * </ul>
-     *
+     * <p>
      * <p>The computed result must be within 1 ulp of the exact
      * result.  If one parameter is held constant, the results must be
      * semi-monotonic in the other parameter.
@@ -1562,6 +1605,7 @@ public final class Math {
      * @param y a value
      * @return sqrt(<i>x</i><sup>2</sup>&nbsp;+<i>y</i><sup>2</sup>)
      * without intermediate overflow or underflow
+     * <p>
      * @since 1.5
      */
     public static native double hypot(double x, double y);
@@ -1571,22 +1615,22 @@ public final class Math {
      * <i>x</i> near 0, the exact sum of
      * {@code expm1(x)}&nbsp;+&nbsp;1 is much closer to the true
      * result of <i>e</i><sup>x</sup> than {@code exp(x)}.
-     *
+     * <p>
      * <p>Special cases:
      * <ul>
      * <li>If the argument is NaN, the result is NaN.
-     *
+     * <p>
      * <li>If the argument is positive infinity, then the result is
      * positive infinity.
-     *
+     * <p>
      * <li>If the argument is negative infinity, then the result is
      * -1.0.
-     *
+     * <p>
      * <li>If the argument is zero, then the result is a zero with the
      * same sign as the argument.
-     *
+     * <p>
      * </ul>
-     *
+     * <p>
      * <p>The computed result must be within 1 ulp of the exact result.
      * Results must be semi-monotonic.  The result of
      * {@code expm1} for any finite input must be greater than or
@@ -1595,9 +1639,9 @@ public final class Math {
      * ulp of the limit value -1, {@code -1.0} should be
      * returned.
      *
-     * @param   x   the exponent to raise <i>e</i> to in the computation of
-     *              <i>e</i><sup>{@code x}</sup>&nbsp;-1.
-     * @return  the value <i>e</i><sup>{@code x}</sup>&nbsp;-&nbsp;1.
+     * @param x the exponent to raise <i>e</i> to in the computation of
+     *          <i>e</i><sup>{@code x}</sup>&nbsp;-1.
+     * @return the value <i>e</i><sup>{@code x}</sup>&nbsp;-&nbsp;1.
      * @since 1.5
      */
     public static native double expm1(double x);
@@ -1608,29 +1652,29 @@ public final class Math {
      * {@code log1p(x)} is much closer to the true result of ln(1
      * + {@code x}) than the floating-point evaluation of
      * {@code log(1.0+x)}.
-     *
+     * <p>
      * <p>Special cases:
-     *
+     * <p>
      * <ul>
-     *
+     * <p>
      * <li>If the argument is NaN or less than -1, then the result is
      * NaN.
-     *
+     * <p>
      * <li>If the argument is positive infinity, then the result is
      * positive infinity.
-     *
+     * <p>
      * <li>If the argument is negative one, then the result is
      * negative infinity.
-     *
+     * <p>
      * <li>If the argument is zero, then the result is a zero with the
      * same sign as the argument.
-     *
+     * <p>
      * </ul>
-     *
+     * <p>
      * <p>The computed result must be within 1 ulp of the exact result.
      * Results must be semi-monotonic.
      *
-     * @param   x   a value
+     * @param x a value
      * @return the value ln({@code x}&nbsp;+&nbsp;1), the natural
      * log of {@code x}&nbsp;+&nbsp;1
      * @since 1.5
@@ -1646,8 +1690,8 @@ public final class Math {
      * permitted to treat some NaN arguments as positive and other NaN
      * arguments as negative to allow greater performance.
      *
-     * @param magnitude  the parameter providing the magnitude of the result
-     * @param sign   the parameter providing the sign of the result
+     * @param magnitude the parameter providing the magnitude of the result
+     * @param sign      the parameter providing the sign of the result
      * @return a value with the magnitude of {@code magnitude}
      * and the sign of {@code sign}.
      * @since 1.6
@@ -1665,8 +1709,8 @@ public final class Math {
      * permitted to treat some NaN arguments as positive and other NaN
      * arguments as negative to allow greater performance.
      *
-     * @param magnitude  the parameter providing the magnitude of the result
-     * @param sign   the parameter providing the sign of the result
+     * @param magnitude the parameter providing the magnitude of the result
+     * @param sign      the parameter providing the sign of the result
      * @return a value with the magnitude of {@code magnitude}
      * and the sign of {@code sign}.
      * @since 1.6
@@ -1678,13 +1722,14 @@ public final class Math {
     /**
      * Returns the unbiased exponent used in the representation of a
      * {@code float}.  Special cases:
-     *
+     * <p>
      * <ul>
      * <li>If the argument is NaN or infinite, then the result is
      * {@link Float#MAX_EXPONENT} + 1.
      * <li>If the argument is zero or subnormal, then the result is
      * {@link Float#MIN_EXPONENT} -1.
      * </ul>
+     *
      * @param f a {@code float} value
      * @return the unbiased exponent of the argument
      * @since 1.6
@@ -1696,13 +1741,14 @@ public final class Math {
     /**
      * Returns the unbiased exponent used in the representation of a
      * {@code double}.  Special cases:
-     *
+     * <p>
      * <ul>
      * <li>If the argument is NaN or infinite, then the result is
      * {@link Double#MAX_EXPONENT} + 1.
      * <li>If the argument is zero or subnormal, then the result is
      * {@link Double#MIN_EXPONENT} -1.
      * </ul>
+     *
      * @param d a {@code double} value
      * @return the unbiased exponent of the argument
      * @since 1.6
@@ -1715,38 +1761,38 @@ public final class Math {
      * Returns the floating-point number adjacent to the first
      * argument in the direction of the second argument.  If both
      * arguments compare as equal the second argument is returned.
-     *
+     * <p>
      * <p>
      * Special cases:
      * <ul>
      * <li> If either argument is a NaN, then NaN is returned.
-     *
+     * <p>
      * <li> If both arguments are signed zeros, {@code direction}
      * is returned unchanged (as implied by the requirement of
      * returning the second argument if the arguments compare as
      * equal).
-     *
+     * <p>
      * <li> If {@code start} is
      * &plusmn;{@link Double#MIN_VALUE} and {@code direction}
      * has a value such that the result should have a smaller
      * magnitude, then a zero with the same sign as {@code start}
      * is returned.
-     *
+     * <p>
      * <li> If {@code start} is infinite and
      * {@code direction} has a value such that the result should
      * have a smaller magnitude, {@link Double#MAX_VALUE} with the
      * same sign as {@code start} is returned.
-     *
+     * <p>
      * <li> If {@code start} is equal to &plusmn;
      * {@link Double#MAX_VALUE} and {@code direction} has a
      * value such that the result should have a larger magnitude, an
      * infinity with same sign as {@code start} is returned.
      * </ul>
      *
-     * @param start  starting floating-point value
+     * @param start     starting floating-point value
      * @param direction value indicating which of
-     * {@code start}'s neighbors or {@code start} should
-     * be returned
+     *                  {@code start}'s neighbors or {@code start} should
+     *                  be returned
      * @return The floating-point number adjacent to {@code start} in the
      * direction of {@code direction}.
      * @since 1.6
@@ -1760,36 +1806,36 @@ public final class Math {
      * argument in the direction of the second argument.  If both
      * arguments compare as equal a value equivalent to the second argument
      * is returned.
-     *
+     * <p>
      * <p>
      * Special cases:
      * <ul>
      * <li> If either argument is a NaN, then NaN is returned.
-     *
+     * <p>
      * <li> If both arguments are signed zeros, a value equivalent
      * to {@code direction} is returned.
-     *
+     * <p>
      * <li> If {@code start} is
      * &plusmn;{@link Float#MIN_VALUE} and {@code direction}
      * has a value such that the result should have a smaller
      * magnitude, then a zero with the same sign as {@code start}
      * is returned.
-     *
+     * <p>
      * <li> If {@code start} is infinite and
      * {@code direction} has a value such that the result should
      * have a smaller magnitude, {@link Float#MAX_VALUE} with the
      * same sign as {@code start} is returned.
-     *
+     * <p>
      * <li> If {@code start} is equal to &plusmn;
      * {@link Float#MAX_VALUE} and {@code direction} has a
      * value such that the result should have a larger magnitude, an
      * infinity with same sign as {@code start} is returned.
      * </ul>
      *
-     * @param start  starting floating-point value
+     * @param start     starting floating-point value
      * @param direction value indicating which of
-     * {@code start}'s neighbors or {@code start} should
-     * be returned
+     *                  {@code start}'s neighbors or {@code start} should
+     *                  be returned
      * @return The floating-point number adjacent to {@code start} in the
      * direction of {@code direction}.
      * @since 1.6
@@ -1805,17 +1851,17 @@ public final class Math {
      * Double.POSITIVE_INFINITY)}; however, a {@code nextUp}
      * implementation may run faster than its equivalent
      * {@code nextAfter} call.
-     *
+     * <p>
      * <p>Special Cases:
      * <ul>
      * <li> If the argument is NaN, the result is NaN.
-     *
+     * <p>
      * <li> If the argument is positive infinity, the result is
      * positive infinity.
-     *
+     * <p>
      * <li> If the argument is zero, the result is
      * {@link Double#MIN_VALUE}
-     *
+     * <p>
      * </ul>
      *
      * @param d starting floating-point value
@@ -1834,17 +1880,17 @@ public final class Math {
      * Float.POSITIVE_INFINITY)}; however, a {@code nextUp}
      * implementation may run faster than its equivalent
      * {@code nextAfter} call.
-     *
+     * <p>
      * <p>Special Cases:
      * <ul>
      * <li> If the argument is NaN, the result is NaN.
-     *
+     * <p>
      * <li> If the argument is positive infinity, the result is
      * positive infinity.
-     *
+     * <p>
      * <li> If the argument is zero, the result is
      * {@link Float#MIN_VALUE}
-     *
+     * <p>
      * </ul>
      *
      * @param f starting floating-point value
@@ -1855,6 +1901,7 @@ public final class Math {
     public static float nextUp(float f) {
         return sun.misc.FpUtils.nextUp(f);
     }
+
     /**
      * Returns the floating-point value adjacent to {@code d} in
      * the direction of negative infinity.  This method is
@@ -1862,20 +1909,20 @@ public final class Math {
      * Double.NEGATIVE_INFINITY)}; however, a
      * {@code nextDown} implementation may run faster than its
      * equivalent {@code nextAfter} call.
-     *
+     * <p>
      * <p>Special Cases:
      * <ul>
      * <li> If the argument is NaN, the result is NaN.
-     *
+     * <p>
      * <li> If the argument is negative infinity, the result is
      * negative infinity.
-     *
+     * <p>
      * <li> If the argument is zero, the result is
      * {@code -Double.MIN_VALUE}
-     *
+     * <p>
      * </ul>
      *
-     * @param d  starting floating-point value
+     * @param d starting floating-point value
      * @return The adjacent floating-point value closer to negative
      * infinity.
      * @since 1.8
@@ -1888,7 +1935,7 @@ public final class Math {
                 return -Double.MIN_VALUE;
             else
                 return Double.longBitsToDouble(Double.doubleToRawLongBits(d) +
-                                               ((d > 0.0d)?-1L:+1L));
+                        ((d > 0.0d) ? -1L : +1L));
         }
     }
 
@@ -1899,20 +1946,20 @@ public final class Math {
      * Float.NEGATIVE_INFINITY)}; however, a
      * {@code nextDown} implementation may run faster than its
      * equivalent {@code nextAfter} call.
-     *
+     * <p>
      * <p>Special Cases:
      * <ul>
      * <li> If the argument is NaN, the result is NaN.
-     *
+     * <p>
      * <li> If the argument is negative infinity, the result is
      * negative infinity.
-     *
+     * <p>
      * <li> If the argument is zero, the result is
      * {@code -Float.MIN_VALUE}
-     *
+     * <p>
      * </ul>
      *
-     * @param f  starting floating-point value
+     * @param f starting floating-point value
      * @return The adjacent floating-point value closer to negative
      * infinity.
      * @since 1.8
@@ -1925,7 +1972,7 @@ public final class Math {
                 return -Float.MIN_VALUE;
             else
                 return Float.intBitsToFloat(Float.floatToRawIntBits(f) +
-                                            ((f > 0.0f)?-1:+1));
+                        ((f > 0.0f) ? -1 : +1));
         }
     }
 
@@ -1944,7 +1991,7 @@ public final class Math {
      * is subnormal, {@code scalb(scalb(x, n), -n)} may not equal
      * <i>x</i>.  When the result is non-NaN, the result has the same
      * sign as {@code d}.
-     *
+     * <p>
      * <p>Special cases:
      * <ul>
      * <li> If the first argument is NaN, NaN is returned.
@@ -1954,7 +2001,7 @@ public final class Math {
      * sign is returned.
      * </ul>
      *
-     * @param d number to be scaled by a power of two.
+     * @param d           number to be scaled by a power of two.
      * @param scaleFactor power of 2 used to scale {@code d}
      * @return {@code d} &times; 2<sup>{@code scaleFactor}</sup>
      * @since 1.6
@@ -1978,7 +2025,7 @@ public final class Math {
      * is subnormal, {@code scalb(scalb(x, n), -n)} may not equal
      * <i>x</i>.  When the result is non-NaN, the result has the same
      * sign as {@code f}.
-     *
+     * <p>
      * <p>Special cases:
      * <ul>
      * <li> If the first argument is NaN, NaN is returned.
@@ -1988,7 +2035,7 @@ public final class Math {
      * sign is returned.
      * </ul>
      *
-     * @param f number to be scaled by a power of two.
+     * @param f           number to be scaled by a power of two.
      * @param scaleFactor power of 2 used to scale {@code f}
      * @return {@code f} &times; 2<sup>{@code scaleFactor}</sup>
      * @since 1.6

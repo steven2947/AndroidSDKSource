@@ -36,7 +36,7 @@ import static android.gesture.GestureConstants.LOG_TAG;
 /**
  * GestureLibrary maintains gesture examples and makes predictions on a new
  * gesture
- *
+ * <p>
  * GestureLibrary 是维持手势实例和预测新的手势
  */
 //
@@ -62,7 +62,9 @@ import static android.gesture.GestureConstants.LOG_TAG;
 //
 public class GestureStore {
     public static final int SEQUENCE_INVARIANT = 1;
+
     // when SEQUENCE_SENSITIVE is used, only single stroke gestures are currently allowed
+    //当使用SEQUENCE_SENSITIVE时，目前仅允许单个笔触手势
     public static final int SEQUENCE_SENSITIVE = 2;
 
     // ORIENTATION_SENSITIVE and ORIENTATION_INVARIANT are only for SEQUENCE_SENSITIVE gestures
@@ -93,9 +95,9 @@ public class GestureStore {
     }
 
     /**
-     * Specify how the gesture library will handle orientation. 
+     * Specify how the gesture library will handle orientation.
      * Use ORIENTATION_INVARIANT or ORIENTATION_SENSITIVE
-     * 
+     *
      * @param style
      */
     public void setOrientationStyle(int style) {
@@ -122,7 +124,7 @@ public class GestureStore {
 
     /**
      * Get all the gesture entry names in the library
-     * 
+     *
      * @return a set of strings
      */
     public Set<String> getGestureEntries() {
@@ -131,21 +133,26 @@ public class GestureStore {
 
     /**
      * Recognize a gesture
-     * 
+     *
+     * 设别手势
+     *
      * @param gesture the query
      * @return a list of predictions of possible entries for a given gesture
      */
     public ArrayList<Prediction> recognize(Gesture gesture) {
-        Instance instance = Instance.createInstance(mSequenceType,
-                mOrientationStyle, gesture, null);
+
+        //实例
+        Instance instance = Instance.createInstance(mSequenceType, mOrientationStyle, gesture, null);
+
+        //归类
         return mClassifier.classify(mSequenceType, mOrientationStyle, instance.vector);
     }
 
     /**
      * Add a gesture for the entry
-     * 
-     * @param entryName entry name
-     * @param gesture
+     *
+     * @param entryName 手势名字
+     * @param gesture   手势对象
      */
     public void addGesture(String entryName, Gesture gesture) {
         if (entryName == null || entryName.length() == 0) {
@@ -157,15 +164,14 @@ public class GestureStore {
             mNamedGestures.put(entryName, gestures);
         }
         gestures.add(gesture);
-        mClassifier.addInstance(
-                Instance.createInstance(mSequenceType, mOrientationStyle, gesture, entryName));
+        mClassifier.addInstance(Instance.createInstance(mSequenceType, mOrientationStyle, gesture, entryName));
         mChanged = true;
     }
 
     /**
      * Remove a gesture from the library. If there are no more gestures for the
      * given entry, the gesture entry will be removed.
-     * 
+     *
      * @param entryName entry name
      * @param gesture
      */
@@ -189,7 +195,7 @@ public class GestureStore {
 
     /**
      * Remove a entry of gestures
-     * 
+     *
      * @param entryName the entry name
      */
     public void removeEntry(String entryName) {
@@ -200,7 +206,7 @@ public class GestureStore {
 
     /**
      * Get all the gestures of an entry
-     * 
+     *
      * @param entryName
      * @return the list of gestures that is under this name
      */
@@ -305,6 +311,12 @@ public class GestureStore {
         }
     }
 
+    /**
+     * 读取文件数据
+     *
+     * @param in
+     * @throws IOException
+     */
     private void readFormatV1(DataInputStream in) throws IOException {
         final Learner classifier = mClassifier;
         final HashMap<String, ArrayList<Gesture>> namedGestures = mNamedGestures;
@@ -330,7 +342,7 @@ public class GestureStore {
             namedGestures.put(name, gestures);
         }
     }
-    
+
     Learner getLearner() {
         return mClassifier;
     }
