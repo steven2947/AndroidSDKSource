@@ -21,6 +21,7 @@ import android.graphics.Path;
 
 /**
  * An oriented bounding box
+ * 确定方向的盒子
  */
 public class OrientedBoundingBox {
     public final float squareness;
@@ -28,7 +29,7 @@ public class OrientedBoundingBox {
     public final float width;
     public final float height;
 
-    public final float orientation; 
+    public final float orientation;
 
     public final float centerX;
     public final float centerY;
