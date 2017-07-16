@@ -116,7 +116,7 @@ class Instance {
         //计算弧度值(计算第一个点与重心点形成的角度的弧度值)
         float orientation = (float) Math.atan2(pts[1] - center[1], pts[0] - center[0]);
 
-        //???
+        //???调整
         float adjustment = -orientation;
         if (orientationType != GestureStore.ORIENTATION_INVARIANT) {
             int count = ORIENTATIONS.length;

@@ -45,7 +45,7 @@ class InstanceLearner extends Learner {
      *
      * @param sequenceType
      * @param orientationType
-     * @param vector
+     * @param vector 向量
      * @return
      */
     @Override
